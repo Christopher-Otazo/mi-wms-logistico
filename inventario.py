@@ -84,13 +84,13 @@ def mostrar_menu():
     print("6. Salir")
     return input("Seleccione una opcion:  ")
 
-def listar_productos():
+def obtener_productos():
     conn = sqlite3.connect('bodega.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT sku, nombre, cantidad, ubicacion FROM productos')
-    for p in cursor.fetchall():
-        print(f"[{p[3]}] SKU: {p[0]} | {p[1]} | Stock: {p[2]}")
+    cursor.execute('SELECT sku, nombre, cantidad, punto_critico,  ubicacion FROM productos')
+    productos = cursor.fetchall()
     conn.close()
+    return productos
 
 if __name__== "__main__":
     inicializar_db()

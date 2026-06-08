@@ -49,7 +49,7 @@ def realizar_movimiento(sku, cantidad_cambio):
 
 def registrar_producto_nuevo():
     print("\n--- REGISTRO DE NUEVO SKU ---")
-    sku = input("Ingrese SKU").upper()
+    sku = input("Ingrese SKU  ").upper()
     nombre = input("Nombre del componente:  " )
     try:
         cantidad = int(input("Stock inicial:   "))
@@ -58,7 +58,7 @@ def registrar_producto_nuevo():
         print("Error: La cantidad y el punto critico deben ser numeros.")
         return
 
-    ubicacion = input("Ubicacion en Bodega").upper()
+    ubicacion = input("Ubicacion en Bodega:  ").upper()
 
     conn = sqlite3.connect('bodega.db')
     cursor = conn.cursor()
@@ -87,10 +87,10 @@ def mostrar_menu():
 def listar_productos():
     conn = sqlite3.connect('bodega.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT sku, nombre, cantidad, ubicacion FROM productos')
-    for p in cursor.fetchall():
-        print(f"[{p[3]}] SKU: {p[0]} | {p[1]} | Stock: {p[2]}")
+    cursor.execute('SELECT sku, nombre, cantidad, punto_critico,  ubicacion FROM productos')
+    productos = cursor.fetchall()
     conn.close()
+    return productos
 
 if __name__== "__main__":
     inicializar_db()
