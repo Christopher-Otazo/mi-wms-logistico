@@ -92,6 +92,20 @@ def obtener_productos():
     conn.close()
     return productos
 
+def listar_productos():
+    conn = sqlite3.connect('bodega.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT sku, nombre, cantidad, ubicacion FROM productos')
+    productos = cursor.fetchall()
+
+    print("\n--- INVENTARIO ACTUAL ---")
+    if not productos:
+        print("No hay productos registrados.")
+    else:
+        for p in productos:
+            print(f"[{p[3]}] SKU: {p[0]} | {p[1]} | Stock: {p[2]}")
+    conn.close()
+
 if __name__== "__main__":
     inicializar_db()
     while True:
